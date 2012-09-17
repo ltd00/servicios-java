@@ -1,0 +1,6 @@
+CREATE SCHEMA prueba ; 
+
+create table pedidos (
+codigo  varchar(10),
+descripcion varchar(100)
+)
