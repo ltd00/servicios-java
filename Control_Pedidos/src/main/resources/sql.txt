@@ -4,3 +4,7 @@ create table pedidos (
 codigo  varchar(10),
 descripcion varchar(100)
 )
+
+git add origin 
+git push -u origin master
+
