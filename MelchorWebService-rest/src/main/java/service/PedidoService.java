@@ -16,6 +16,6 @@ public interface PedidoService {
 	    @Path("/pedido")
 	    @Produces({"application/xml", "application/json"})
 	    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	    public String setPedido(@FormParam("xmlStr") String xmlStr) throws Exception ;
+	    public String setPedido(@FormParam("xmlStr") String xmlpedido,@FormParam("xmlStr") String xmldetalle) throws Exception ;
 
 	}

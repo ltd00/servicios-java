@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
 import model.DetallePedido;
+import model.Pedido;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,21 +36,42 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
-	public String setPedido(String xmlStr) throws Exception {
+	public String setPedido(String xmlpedido, String xmldetalle) throws Exception {
 
 		DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 		DocumentBuilder b = f.newDocumentBuilder();
-		Document doc = b.parse(new ByteArrayInputStream(xmlStr
-				.getBytes("UTF-8")));
+		
+		Document docPedido = b.parse(new ByteArrayInputStream(xmldetalle.getBytes("UTF-8")));
+		NodeList booksPedido = docPedido.getElementsByTagName("Pedido");
+		for (int i = 0; i < booksPedido.getLength(); i++) {
+			Element book = (Element) booksPedido.item(i);
+			Node idPedido = book.getElementsByTagName("idPedido").item(0);
+			Node nroPedido = book.getElementsByTagName("NroPedido").item(1);
+			Node fechaPedido = book.getElementsByTagName("FechaPedido").item(2);
+			Node tipoPedido = book.getElementsByTagName("TipoPedido").item(3);
+			Node asunto = book.getElementsByTagName("Asunto").item(4);
+			
+			
+			Pedido pedido = new  Pedido();
+			pedido.setAsunto(""+asunto);
+			pedido.setFechaPedido(""+fechaPedido);
+			pedido.setIdPedido(""+idPedido);
+			pedido.setNroPedido(""+nroPedido);
+			pedido.setTipoPedido(""+tipoPedido);
+			
+			
+			insertPedidos(pedido);
+		}
+		Document doc = b.parse(new ByteArrayInputStream(xmldetalle.getBytes("UTF-8")));
 		NodeList books = doc.getElementsByTagName("Detalle");
 		for (int i = 0; i < books.getLength(); i++) {
 			Element book = (Element) books.item(i);
 			Node idPedido = book.getElementsByTagName("idPedido").item(0);
-			Node idPedidoDet = book.getElementsByTagName("idPedidoDet").item(0);
-			Node cantidad = book.getElementsByTagName("Cantidad").item(0);
-			Node idProducto = book.getElementsByTagName("idProducto").item(0);
-			Node observacion = book.getElementsByTagName("observacion").item(0);
-			Node prioridad = book.getElementsByTagName("prioridad").item(0);
+			Node idPedidoDet = book.getElementsByTagName("idPedidoDet").item(1);
+			Node cantidad = book.getElementsByTagName("Cantidad").item(2);
+			Node idProducto = book.getElementsByTagName("idProducto").item(3);
+			Node observacion = book.getElementsByTagName("observacion").item(4);
+			Node prioridad = book.getElementsByTagName("prioridad").item(5);
 			
 			DetallePedido detPedido = new  DetallePedido();
 			detPedido.setIdPedido(""+idPedido);
@@ -60,9 +82,9 @@ public class PedidoServiceImpl implements PedidoService {
 			detPedido.setPrioridad(""+prioridad);
 			insertDetPedidos(detPedido);
 		
-		System.out.print(xmlStr);
+		System.out.print(xmldetalle);
 		}
-		return xmlStr;
+		return xmldetalle;
 	}
 	public int  insertDetPedidos(DetallePedido pedidodet
 			) {
@@ -91,6 +113,36 @@ public class PedidoServiceImpl implements PedidoService {
 		return 1;
 	}
 
+
+	
+	public int  insertPedidos(Pedido pedido
+			) {
+
+		MySqlDBConn con = new MySqlDBConn();
+		CallableStatement cs = null;
+		String storeProcedure = "{CALL usp_insertar_Pedido(?,?,?,?,?,?)}";
+
+		try {
+			System.out.println("Prepara Procedure");
+			cs = con.getConnection().prepareCall(storeProcedure);
+			cs.setString(1, pedido.getAsunto());
+			cs.setString(2, pedido.getFechaPedido());
+			cs.setString(3, pedido.getIdPedido());
+			cs.setString(4, pedido.getNroPedido());
+			cs.setString(5, pedido.getTipoPedido());
+
+			// System.out.println("Antes de Ejecutar Procedure");
+			 cs.execute();		
+			
+			cs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return 1;
+	}
+
+	
+	
 	
 	
 
