@@ -1,0 +1,20 @@
+CREATE TABLE pedidos
+(
+	IdPedido INT auto_increment,
+	NroPedido VARCHAR(40),
+	FechaPedido VARCHAR(15),
+	TipoPedido VARCHAR(40),
+	Asunto VARCHAR(150),
+	primary KEY(IdPedido)
+)
+
+CREATE TABLE detallepedidos
+(
+	IdPedidoDet INT auto_increment,
+	IdPedido INT,
+	IdProducto INT,
+	Cantidad INT,
+	Prioridad VARCHAR(15),
+	Observacion VARCHAR(40),
+	primary KEY(IdPedidoDet)
+)

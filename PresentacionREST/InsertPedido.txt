@@ -1,0 +1,31 @@
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE `central_bd`.`usp_InsertarPedido` 
+(
+	IN Par_NroPedido VARCHAR(20),
+	IN Par_FechaPedido VARCHAR(20),
+	IN Par_TipoPedido VARCHAR(50),
+	in Par_Asunto	VARCHAR(150)
+)
+BEGIN
+
+	INSERT INTO Pedidos
+	(
+		NroPedido,
+		FechaPedido,
+		TipoPedido,
+		Asunto
+	)
+	values
+	(
+		Par_NroPedido,
+		Par_FechaPedido,
+		Par_TipoPedido,
+		Par_Asunto
+	);
+
+END

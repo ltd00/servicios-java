@@ -1,0 +1,33 @@
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE `central_bd`.`usp_InsertarDetallePedido` 
+(
+	IN Par_IdProducto int,
+	IN Par_Cantidad int,
+	IN Par_Prioridad varchar(20),
+	IN Par_Observacion varchar(150)
+)
+BEGIN
+
+	INSERT INTO Detallepedidos
+	(
+		IdPedido,
+		IdProducto,
+		Cantidad,
+		Prioridad,
+		Observacion
+	)
+	VALUES
+	(
+		(SELECT IFNULL(MAX(IdPedido),1) from pedidos),
+		Par_IdProducto,
+		Par_Cantidad,
+		Par_Prioridad,
+		Par_Observacion
+	);
+
+END
