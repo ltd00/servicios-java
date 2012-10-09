@@ -27,5 +27,5 @@ And t1.In60aa     =@In60aa
 And t1.In60Area   =@In60Area  
 And t1.In60numped =@In60numped  
 And t1.in60FlujoProceso = @in60FlujoProceso  
-Order by T1.In60Item  
+Order by T1.In60Item   .
   
