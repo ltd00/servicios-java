@@ -1,0 +1,31 @@
+alter Procedure Usp_ControlPedido_Trae_PedParaAprobarDet  
+@In60codemp      char(2),  
+@In60aa       char(4),  
+@In60Area     varchar(10),  
+@In60numped   varchar(10),  
+@in60FlujoProceso  int  
+As  
+Select    T1.In60codemp, T1.In60aa,t1.In60Area, T1.In60numped, T1.In60Item,  
+   T2.In60codalm,T2.In60codart, T2.In60desart, T2.In60unidad, T2.In60NroParte,  
+   T2.In60cantidad,t2.In60Prioridad, T2.In60Observacion,
+   --Traer las ultimas cantidades  
+   T1.In60EstadoAprob,T1.In60CantidadNueva,T1.In60Observacion as Sustento,  
+     
+   '' as ccmc03des, 0 as 'In60Estado',  
+   '' as 'In60EstadoActual'  
+   --  
+   from v_In60detalleSeg t1 Inner Join In60detalle t2  
+On   
+    t1.In60codemp      =t2.In60codemp  
+And t1.In60aa      =t2.In60aa  
+And t1.In60Area    =t2.In60Area  
+And t1.In60numped  =t2.In60numped  
+And t1.In60Item  =t2.In60Item  
+where   
+    t1.In60codemp     =@In60codemp  
+And t1.In60aa     =@In60aa  
+And t1.In60Area   =@In60Area  
+And t1.In60numped =@In60numped  
+And t1.in60FlujoProceso = @in60FlujoProceso  
+Order by T1.In60Item  
+  
