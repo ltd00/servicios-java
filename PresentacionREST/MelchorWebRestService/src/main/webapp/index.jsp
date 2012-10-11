@@ -1,7 +1,6 @@
 <html>
 <body>
-	<h2>TEST INSERTAR PEDIDOS</h2>
+	<h2>Web Service Pedidos</h2>
 
-	<a href="postUser.jsp">Ingresar Pedidos</a>
 </body>
 </html>

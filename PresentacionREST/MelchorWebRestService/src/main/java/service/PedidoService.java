@@ -1,16 +1,11 @@
 package service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -22,7 +17,7 @@ public interface PedidoService {
 	@Path("/insertPedido/{NroPedido}/{FechaPedido}/{TipoPedido}/{Asunto}")
 	@Produces("application/json")
 	public int insertarPedido(
-			@PathParam("NroPedido") String NroPedido,
+@PathParam("NroPedido") String NroPedido,
 			@PathParam("FechaPedido") String FechaPedido,
 			@PathParam("TipoPedido") String TipoPedido,
 			@PathParam("Asunto") String Asunto) throws IOException,

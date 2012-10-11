@@ -19,8 +19,8 @@ public class MySqlDBConn {
 		try {
 			connection = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/central_bd", "root",
-				//	"p@ssw0rd");
-		"i510635");
+					"p@ssw0rd");
+			// "i510635");
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
